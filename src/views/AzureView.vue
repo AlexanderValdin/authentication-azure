@@ -3,31 +3,33 @@
 </template>
 <script lang="ts">
     import { PublicClientApplication} from '@azure/msal-browser'
-    import { defineComponent, DefineComponent } from 'vue'
+    import { defineComponent, onMounted } from 'vue'
     import AzureService from '@/services/AzureService'
     export default defineComponent({
         name: 'AzureView',
-        data(){
-            return {
-                account: ''
-            }
-        },
-        async created() {
-            const azureService = new AzureService()
-            this.$msalInstance = new PublicClientApplication(azureService.getMsalConfig())
-        },
-        methods: {
-            async login() {
-                await this.$msalInstance
+        
+        setup() {
+            onMounted(() => {
+                const azureService = new AzureService()
+                $msalInstance = new PublicClientApplication(azureService.getMsalConfig().value)
+            })
+            let account = ''
+
+            const login = async () => {
+                await $msalInstance
                 .loginPopup({})
                 .then( () => {
-                    const myAccounts = this.$msalInstance.getAllAccounts()
-                    this.account = myAccounts[0]
-                    this.$emitter.emit('login', this.account)
+                    const myAccounts = $msalInstance.getAllAccounts()
+                    account = myAccounts[0]
+                    $emitter.emit('login', account)
                 })
                 .catch( error => {
                     alert(error)
                 })
+            }
+
+            return {
+                account, login
             }
         }
     })
