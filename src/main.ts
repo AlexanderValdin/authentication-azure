@@ -6,7 +6,7 @@ import Emitter from 'tiny-emitter'
 const app = createApp(App)
 
 app.config.globalProperties.$msalInstance = {} // configuración vacía de nuestra instancia de msal
-app.config.globalProperties.$emitter = new Emitter() // emisor para luego mandar los datos a través de la cola
+app.config.globalProperties.$emitter = new Emitter.TinyEmitter() // emisor para luego mandar los datos a través de la cola
 
 
 app.use(router).mount('#app')
