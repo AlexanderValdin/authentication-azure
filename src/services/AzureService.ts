@@ -8,8 +8,8 @@ class AzureService {
     constructor() {
         this.msalConfig = ref({
             auth: {
-                clientId: 'f827c248-ff1f-4892-adf3-63475debad36',
-                authority: 'https://login.microsoftonline.com/e4c36323-f55d-4975-8c6d-e0a888432631'
+                clientId: 'xxxxxxx',
+                authority: 'xxxxxxx'
             },
             cache: {
                 cacheLocation: 'localStorage'
